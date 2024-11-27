@@ -91,16 +91,16 @@ The current project is in its early stages. Below is the structure so far:
 #### **Phase 1: Foundation (High Priority)**
 - [x] Clean up boilerplate code, assets, and components. *(Done)*
 - [x] Set up a basic structure for the app (e.g., `HomeView` with placeholder content).
-- [ ] Integrate [The Color API](https://www.thecolorapi.com/) and test fetching color data for fixed `Saturation` and `Lightness` values.
-- [ ] Display a basic grid of swatches for the fetched color data:
-  - [ ] Show visualized color (background of the swatch).
-  - [ ] Display color name.
-  - [ ] Display RGB values.
+- [x] Integrate [The Color API](https://www.thecolorapi.com/) and test fetching color data for fixed `Saturation` and `Lightness` values.
+- [x] Display a basic grid of swatches for the fetched color data:
+  - [x] Show visualized color (background of the swatch).
+  - [x] Display color name.
+  - [x] Display RGB values.
 
 #### **Phase 2: User Interactivity (Medium Priority)**
-- [ ] Add simple user controls for `Saturation` and `Lightness`:
-  - [ ] Sliders or number inputs for `S` (0–100) and `L` (0–100).
-  - [ ] Trigger API calls when the user changes values (debounced).
+- [x] Add simple user controls for `Saturation` and `Lightness`:
+  - [ ] Sliders or number inputs for `S` (0–100) and `L` (0–100). (Maybe?)
+  - [ ] Trigger API calls when the user changes values (debounced). (Still thinking about this..)
 - [ ] Handle loading states:
   - [ ] Show a spinner or "Loading..." message during API calls.
   - [ ] Display a meaningful error message for failed API calls.
