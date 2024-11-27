@@ -2,9 +2,11 @@
   <!-- 
       The "color swatch" container:
       - Displays a color preview with the background set to the provided HEX color.
-      - Includes the color name and its RGB representation.
+      - Includes the color name and its RGB representation below the color.
     -->
-  <div class="swatch" :style="{ backgroundColor: colorHex }">
+  <div class="swatch">
+    <!-- Color preview square -->
+    <div class="color-preview" :style="{ backgroundColor: colorHex }"></div>
     <!-- Display the color name -->
     <p class="color-name">{{ colorName }}</p>
     <!-- Display the RGB value -->
@@ -58,13 +60,18 @@ defineProps({
   /* Add a subtle shadow for depth */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-  /* Ensure the text is visible on colored backgrounds */
-  color: #ffffff;
-
   /* Add a smooth transition for hover effects */
   transition:
     transform 0.2s,
     box-shadow 0.2s;
+}
+
+/* Color preview square */
+.color-preview {
+  width: 100%;
+  height: 100px; /* Consistent height for all swatches */
+  border-radius: 6px; /* Slight rounding to match the container */
+  margin-bottom: 1rem; /* Space between the color square and text */
 }
 
 /* 
@@ -80,5 +87,7 @@ defineProps({
 .color-rgb {
   /* Add spacing between text elements */
   margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #333;
 }
 </style>

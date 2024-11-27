@@ -15,8 +15,8 @@ export async function fetchColors(saturation, lightness) {
     // Build the request URL with dynamic HSL values
     const params = {
       mode: 'analogic', // Generates a palette based on the hue
-      count: 6, // Number of colors to fetch
-      hsl: `hsl(${hue}, ${saturation}%, ${lightness}%)`
+      count: 20, // Number of colors to fetch
+      hsl: `hsl(${hue}, ${saturation}%, ${lightness}%)`,
     }
 
     // Make the API request

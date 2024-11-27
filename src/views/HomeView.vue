@@ -95,7 +95,9 @@ async function loadColors() {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-bottom: 2rem;
+  align-items: flex-start; /* Align inputs and button to the left */
+  max-width: 300px; /* Limit the width of the inputs section */
+  margin: 0 auto 2rem; /* Center the inputs section horizontally */
 }
 
 .inputs label {
@@ -103,19 +105,44 @@ async function loadColors() {
 }
 
 .inputs input {
-  padding: 0.5rem; /* Add space inside inputs */
-  font-size: 1rem; /* Ensure text is legible */
+  padding: 0.3rem 0.5rem; /* Add padding inside inputs */
+  font-size: 0.9rem; /* Slightly smaller font size */
+  width: 100%; /* Make inputs full-width within the container */
+  border: 1px solid var(--color-border); /* Add a border */
+  border-radius: 4px; /* Rounded corners for inputs */
+}
+
+button {
+  padding: 0.5rem 1rem; /* Padding for the button */
+  font-size: 0.9rem; /* Match input font size */
+  background-color: var(--color-primary); /* Use primary color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--color-primary-hover); /* Hover state color */
+}
+
+/* Ensure the title is always centered */
+h1 {
+  text-align: center;
+  margin-bottom: 2rem; /* Add spacing below the title */
 }
 
 /* 
   Styles for the Color Grid:
-  - Arrange swatches in a flexible, responsive layout.
+  - Implement a responsive grid layout to arrange swatches in rows and columns.
+  - Automatically adjust the number of columns based on available space.
 */
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center; /* Center-align the grid */
+  display: grid; /* Enable CSS Grid */
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive grid columns */
+  gap: 1rem; /* Space between swatches */
+  padding: 1rem; /* Add padding around the grid */
 }
 
 /* 
