@@ -90,7 +90,7 @@ The current project is in its early stages. Below is the structure so far:
 
 #### **Phase 1: Foundation (High Priority)**
 - [x] Clean up boilerplate code, assets, and components. *(Done)*
-- [ ] Set up a basic structure for the app (e.g., `HomeView` with placeholder content).
+- [x] Set up a basic structure for the app (e.g., `HomeView` with placeholder content).
 - [ ] Integrate [The Color API](https://www.thecolorapi.com/) and test fetching color data for fixed `Saturation` and `Lightness` values.
 - [ ] Display a basic grid of swatches for the fetched color data:
   - [ ] Show visualized color (background of the swatch).
