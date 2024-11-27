@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { hslToHex } from './hslToHex'
 
 /**
  * fetchColors will get our color data from The Color API using the given saturation and lightness with a random hue.
@@ -9,14 +10,15 @@ import axios from 'axios'
 export async function fetchColors(saturation, lightness) {
   // API endpoint for fetching colors
   const endpoint = `https://www.thecolorapi.com/scheme`
+  const hue = Math.floor(Math.random() * 360) // Random hue for variety
+  const hex = hslToHex(hue, saturation, lightness) // Color API doesn't take hsl 🤦
 
   try {
     // Build the request URL with dynamic HSL values
-    const hue = Math.floor(Math.random() * 360) // Random hue for variety
     const params = {
       mode: 'analogic', // Generates a palette based on the hue
       count: 6, // Number of colors to fetch
-      hex: `hsl(${hue}, ${saturation}%, ${lightness}%)`, 
+      hex
     }
 
     // Make the API request
