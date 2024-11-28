@@ -1,21 +1,11 @@
 @import './base.css';
 
-#app {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--spacing-large);
-}
-
-/* Utility classes for responsiveness */
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-medium);
+  padding: var(--spacing-medium);
 }
 
+/* Utility card styles */
 .card {
-  flex: 1 1 calc(33.333% - var(--spacing-medium));
-  min-width: 200px;
   background: var(--color-background);
   border: 1px solid var(--color-border);
   border-radius: 8px;
@@ -26,16 +16,4 @@
 
 .card:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-@media (max-width: 768px) {
-  .card {
-    flex: 1 1 calc(50% - var(--spacing-medium));
-  }
-}
-
-@media (max-width: 480px) {
-  .card {
-    flex: 1 1 100%;
-  }
 }
