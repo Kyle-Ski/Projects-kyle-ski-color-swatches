@@ -2,6 +2,11 @@
 
 This project is a Vue 3 application that generates HSL color swatches, displaying the RGB values and corresponding color using [The Color API](https://www.thecolorapi.com/).
 
+## **Live URL**:
+
+Check out the deployed version of this project [here!](https://projects-kyle-ski-color-swatches.vercel.app/)
+Deployed with Vercel
+
 ## **Getting Started**
 
 Follow the instructions below to set up and run this project on your local machine.
