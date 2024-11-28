@@ -1,36 +1,74 @@
-import axios from 'axios'
+import axios from 'axios';
+
+const endpoint = `https://www.thecolorapi.com/scheme`;
+const colorCache = new Map(); // Cache for storing fetched colors by hue
+const batchSize = 36; // Number of hues fetched per batch
+let currentBatch = 0; // Tracks the current batch for lazy loading
 
 /**
- * fetchColors will get our color data from The Color API using the given saturation and lightness with a random hue.
- * @param {number} saturation - Saturation value (must be 0–100).
- * @param {number} lightness - Lightness value (must be 0–100).
+ * fetchNextBatch fetches the next batch of colors based on the current batch index.
+ * Resets and fetches new hues if saturation or lightness values change.
+ *
+ * @param {number} saturation - Saturation value (0–100).
+ * @param {number} lightness - Lightness value (0–100).
  * @returns {Promise<object[]>} - Array of color data objects.
  */
-export async function fetchColors(saturation, lightness) {
-  // API endpoint for fetching colors
-  const endpoint = `https://www.thecolorapi.com/scheme`
-  const hue = Math.floor(Math.random() * 360) // Random hue for variety
+export async function fetchNextBatch(saturation, lightness) {
+  const colors = []; // Array to store the resulting colors
 
-  try {
-    // Build the request URL with dynamic HSL values
-    const params = {
-      mode: 'analogic', // Generates a palette based on the hue
-      count: 20, // Number of colors to fetch
-      hsl: `hsl(${hue}, ${saturation}%, ${lightness}%)`,
-    }
-
-    // Make the API request
-    const response = await axios.get(endpoint, { params })
-
-    // Validate and return the colors array
-    if (response.data && Array.isArray(response.data.colors)) {
-      return response.data.colors
-    } else {
-      throw new Error('Unexpected API response format')
-    }
-  } catch (error) {
-    // Log error and rethrow with a user-friendly message
-    console.error('Error fetching colors:', error)
-    throw new Error('Failed to fetch color data. Please check your inputs or try again later.')
+  // Calculate the starting hue for the next batch
+  const startHue = currentBatch * batchSize;
+  if (startHue >= 360) {
+    throw new Error('All hues have been fetched.');
   }
+
+  // Check if hues in the current batch are cached
+  const isCached = Array.from({ length: batchSize }, (_, i) => (startHue + i) % 360).every((hue) =>
+    colorCache.has(hue)
+  );
+
+  if (isCached) {
+    // Use cached values
+    for (let i = 0; i < batchSize; i++) {
+      const hue = (startHue + i) % 360;
+      colors.push(colorCache.get(hue));
+    }
+  } else {
+    // Fetch from API if not cached
+    const params = {
+      mode: 'analogic',
+      count: batchSize,
+      hsl: `hsl(${startHue}, ${saturation}%, ${lightness}%)`,
+    };
+
+    try {
+      const response = await axios.get(endpoint, { params });
+      if (response.data && Array.isArray(response.data.colors)) {
+        response.data.colors.forEach((color, index) => {
+          const hue = (startHue + index) % 360;
+          colorCache.set(hue, color); // Cache the fetched color
+          colors.push(color); // Add to results
+        });
+      } else {
+        throw new Error(`Unexpected API response for hues starting at ${startHue}`);
+      }
+    } catch (error) {
+      console.error(`Error fetching hues starting at ${startHue}:`, error);
+      throw new Error('Failed to fetch colors. Please try again later.');
+    }
+  }
+
+  // Increment the batch counter for the next lazy load
+  currentBatch += 1;
+
+  return colors;
+}
+
+/**
+ * resetBatchState resets the current batch and clears the cache.
+ * Useful when the user changes S/L values and starts fresh.
+ */
+export function resetBatchState() {
+  currentBatch = 0; // Reset batch counter
+  colorCache.clear(); // Clear cached colors
 }
