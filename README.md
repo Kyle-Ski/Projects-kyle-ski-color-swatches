@@ -1,6 +1,11 @@
 # Kyle Ski Color Swatches
 
-This project is a Vue 3 application that generates HSL color swatches using [The Color API](https://www.thecolorapi.com/).
+This project is a Vue 3 application that generates HSL color swatches, displaying the RGB values and corresponding color using [The Color API](https://www.thecolorapi.com/).
+
+## **Live URL**:
+
+Check out the deployed version of this project [here!](https://projects-kyle-ski-color-swatches.vercel.app/)
+Deployed with Vercel
 
 ## **Getting Started**
 
@@ -44,16 +49,17 @@ Ensure the following tools are installed on your machine:
     npm run format
 
 ### Project Structure
-The current project is in its early stages. Below is the structure so far:
 
 - `src/`: Contains application source code.
     - `views/HomeView.vue`: The main view of the app.
+    - `components/`: Houses the reusable parts of our application (ColorSwatch)
+    - `router/`: Holds vue logic for routing of the app (not needed in this project)
+    - `utils/`: Utility functions for the application. 
     - `main.js`: The entry point of the app.
 
 ### Technologies Used
 - Vue 3: The frontend framework.
 - Vite: A fast build tool and development server.
-- Pinia: State management library for Vue.
 - Axios: For API calls.
 - ESLint & Prettier: Code linting and formatting tools.
 
@@ -64,7 +70,6 @@ The current project is in its early stages. Below is the structure so far:
 
 2. **Great Developer Experience**:
    - Vue is simple to set up and quick to learn, especially with tools like `npm create vue@latest` that make starting a new project seamless.
-   - The Composition API offers a clear and modular way to write code, similar to React Hooks, making it both intuitive and powerful.
 
 3. **Reactivity Made Easy**:
    - Vue’s built-in reactivity system simplifies updating and managing the user interface, which is perfect for a project like this that involves dynamic inputs and real-time updates to the grid.
@@ -73,6 +78,26 @@ The current project is in its early stages. Below is the structure so far:
    - Vue’s single-file components keep everything (template, script, and styles) in one place, making the code more organized and easier to maintain.
 
 ---
+
+### **Why Number `<input/>`s?**
+
+I chose number `<input/>` elements for the saturation and lightness fields to enhance usability and ensure data validity. Number inputs offer the following benefits:
+
+1. **Range Validation**: By setting `min` and `max` attributes, we prevent users from entering values outside the valid range (0–100). This reduces the likelihood of invalid inputs being submitted.
+
+2. **Accessibility**: Number inputs are more intuitive for users navigating with keyboards or assistive technologies, as they can rely on arrow keys to adjust the values.
+
+3. **Error Prevention**: Number inputs automatically restrict the user to numeric characters, avoiding issues caused by non-numeric inputs.
+
+By using number inputs, we prioritize data integrity and provide a seamless, user-friendly interface for configuring saturation and lightness values.
+  
+### **Why Cards for Colors?**
+
+Cards provide a clean and organized way to display color swatches along with their details. They encapsulate each color's name and RGB values, making the information visually distinct and easy to scan. This structure also supports responsiveness, and if interactability is needed in the future it will be easy to add on.
+
+### **Why "Load More" Button?**
+
+The "Load More" button is a common pattern in modern apps and websites to handle large datasets efficiently. It allows users to load additional content incrementally without overwhelming the page or user experience, ensuring better performance and responsiveness.
 
 ### **Why Axios?**
 
@@ -99,23 +124,20 @@ The current project is in its early stages. Below is the structure so far:
 
 #### **Phase 2: User Interactivity (Medium Priority)**
 - [x] Add simple user controls for `Saturation` and `Lightness`:
-  - [ ] Sliders or number inputs for `S` (0–100) and `L` (0–100). (Maybe?)
-  - [ ] Trigger API calls when the user changes values (debounced). (Still thinking about this..)
-- [ ] Handle loading states:
-  - [ ] Show a spinner or "Loading..." message during API calls.
-  - [ ] Display a meaningful error message for failed API calls.
+  - [x] Number inputs for `S` (0–100) and `L` (0–100).
+  - [x] Add "Load More" Button to load more items from the api based on batched items
+- [x] Handle loading states:
+  - [x] Show "Loading..." message during API calls.
+  - [x] Display a meaningful error message for failed API calls.
 
 #### **Phase 3: Polish and Optimization (Low Priority)**
-- [ ] Make the grid responsive:
-  - [ ] Use CSS Grid or Flexbox to adapt the layout to screen sizes.
-- [ ] Cache API responses to reduce redundant calls.
+- [x] Make the grid responsive:
+  - [x] Use CSS Grid to adapt the layout to screen sizes.
+- [x] Cache API responses to reduce redundant calls.
 - [ ] Add a fallback message if no colors are available for the selected `S` and `L`.
 
 #### **Phase 4: Optional Extras (If Time Allows)**
 - [ ] Add unit tests for components and API integration.
 - [ ] Enhance user feedback:
-  - [ ] Preview the selected `S` and `L` values dynamically.
-  - [ ] Allow reset to default values.
 - [ ] Optimize performance for larger grids (e.g., lazy loading or virtual scrolling).
-- [ ] Refine the README to explain functionality and design decisions.
 
